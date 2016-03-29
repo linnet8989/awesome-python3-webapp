@@ -1,0 +1,37 @@
+{% extends '__base__.html' %}
+
+{% block title %}主页{% endblock %}
+
+{% block beforehead %}
+
+<script>
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="uk-width-medium-3-4">
+    {% for item in items %}
+        <article class="uk-article">
+            <h2><a href="/item/{{ item.id }}">{{ item.name }}</a></h2>
+            <p class="uk-article-meta">发布于{{ item.created_at|datetime }}</p>
+            <p>{{ item.content }}</p>
+            <p><a href="/item/{{ item.id }}">继续浏览 <i class="uk-icon-angle-double-right"></i></a></p>
+        </article>
+        <hr class="uk-article-divider">
+    {% endfor %}
+    {{ pagination('/?page=', page) }}
+    </div>
+
+    <div class="uk-width-medium-1-4">
+        <div class="uk-panel uk-panel-header">
+            {% if __user__.publisher %}
+            <ul class="uk-list uk-list-line">
+                <li><i class="uk-icon-list"></i> <a target="_blank" href="/manage/user/{{ __user__.id }}/items">管理我的发布</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
